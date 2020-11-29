@@ -19,7 +19,7 @@ public class ButtonLabelUpdater : MonoBehaviour
             _labelManager.ToggelLabelVisability();
         }
     }
-        
+
     private void SetModel(GameObject newModel)
     {
         _labelManager = newModel.GetComponent<LabelManager>();

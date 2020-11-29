@@ -10,6 +10,7 @@ public class LabelManager : MonoBehaviour
     private Transform _modelCentre;
 
     public bool _labelsAreVisable { get; private set; }
+
     private static string RemoveNonLetterChars(string input) => Regex.Replace(input, "[._ 1234567890()\r\b]", "").ToLower();
 
     // Start is called before the first frame update

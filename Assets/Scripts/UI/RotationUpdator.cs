@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
 public class RotationUpdator : MonoBehaviour
-{    
+{
     private Transform _model;
 
     void Start()

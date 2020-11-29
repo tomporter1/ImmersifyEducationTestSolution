@@ -1,15 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+/// <summary>
+/// The event that is triggered when a new model has been selected.
+/// The new model's GameObject into the event.
+/// </summary>
 public class OnModelChange : UnityEvent<GameObject> { }
 
 [RequireComponent(typeof(Dropdown))]
 public class ModelManager : MonoBehaviour
 {
     public static OnModelChange onModelChange = new OnModelChange();
+
     [SerializeField]
     private List<GameObject> models;
     [SerializeField]
@@ -28,9 +32,9 @@ public class ModelManager : MonoBehaviour
         {
             options.Add(new Dropdown.OptionData(model.name));
         }
-        
+
         _modelDropdown.AddOptions(options);
-        
+
         ChangeModel();
     }
 

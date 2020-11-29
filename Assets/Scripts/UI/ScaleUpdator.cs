@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ScaleUpdator : MonoBehaviour
 {
     private Transform _model;
-   
+
     void Start()
     {
         ModelManager.onModelChange.AddListener(SetModel);
