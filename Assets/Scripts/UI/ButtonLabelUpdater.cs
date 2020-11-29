@@ -3,13 +3,26 @@ using UnityEngine.UI;
 
 public class ButtonLabelUpdater : MonoBehaviour
 {
-    [SerializeField]
     private LabelManager _labelManager;
-
-    public void SetButtonText() => GetComponentInChildren<Text>().text = _labelManager._labelsAreVisable ? "Hide Part Labels" : "Show Part Labels";
 
     void Start()
     {
+        ModelManager.onModelChange.AddListener(SetModel);
+        SetButtonText();
+    }
+
+    public void SetButtonText()
+    {
+        if (_labelManager != null)
+        {
+            GetComponentInChildren<Text>().text = _labelManager._labelsAreVisable ? "Hide Part Labels" : "Show Part Labels";
+            _labelManager.ToggelLabelVisability();
+        }
+    }
+        
+    private void SetModel(GameObject newModel)
+    {
+        _labelManager = newModel.GetComponent<LabelManager>();
         SetButtonText();
     }
 }
