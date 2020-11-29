@@ -2277,7 +2277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isMovable: 1
   _directionMarker: {fileID: 1403426358}
-  _multiplier: 0.125
+  _multiplier: 0.101
 --- !u!114 &759554463
 MonoBehaviour:
   m_ObjectHideFlags: 0

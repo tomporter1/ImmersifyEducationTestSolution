@@ -12,8 +12,8 @@ public class PartMover : MonoBehaviour
     internal float _multiplier;
 
     private Vector3 _origionalLocalPos;
-    private Vector3 partCentre { get => GetComponent<Part>().CentreOfMass; }
-    private Vector3 directionPoint { get => _directionMarker == null ? partCentre : _directionMarker.position; }
+    private Vector3 _partCentre { get => GetComponent<Part>().CentreOfMass; }
+    private Vector3 _directionPoint { get => _directionMarker == null ? _partCentre : _directionMarker.position; }
 
     private static float _moveTime = 1f;
 
@@ -29,9 +29,9 @@ public class PartMover : MonoBehaviour
         _origionalLocalPos = transform.localPosition;
 
         //calculate end position
-        Vector3 offset = transform.position - partCentre;
-        Vector3 expandDirection = directionPoint - modelCentre;
-        Vector3 endPos = partCentre - offset + expandDirection * _multiplier;
+        Vector3 offset = transform.position - _partCentre;
+        Vector3 expandDirection = _directionPoint - modelCentre;
+        Vector3 endPos = _partCentre - offset + expandDirection * _multiplier;
 
         Vector3 startPos = transform.position;
         float elapsedTime = 0;
