@@ -6,6 +6,7 @@ public class ScaleUpdator : MonoBehaviour
 {
     [SerializeField]
     private Transform _model;
+
     public void SetModelScale()
     {
         float newScale = GetComponent<Slider>().value;

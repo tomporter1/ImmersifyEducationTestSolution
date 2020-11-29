@@ -6,6 +6,7 @@ public class RotationUpdator : MonoBehaviour
 {
     [SerializeField]
     private Transform _model;
+
     public void SetModelRotation()
     {
         float newRotation = GetComponent<Slider>().value;

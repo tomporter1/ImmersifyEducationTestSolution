@@ -10,7 +10,6 @@ public class Part : MonoBehaviour
     private static readonly float labelMultiplier = 0.85f;
 
     public Vector3 CentreOfMass { get => GetComponent<Renderer>().bounds.center; }
-    public MeshRenderer Renderer { get => GetComponent<MeshRenderer>(); }
 
     public void InstantiateLabel(Vector3 modelCentre)
     {
@@ -19,11 +18,8 @@ public class Part : MonoBehaviour
         _labelText.text = "";
 
         //Set label position
-
         Vector3 offsetDirection = CentreOfMass - modelCentre;
         Vector3 labelPosition = offsetDirection + CentreOfMass * labelMultiplier;
-
-        //set label position
         _labelText.transform.position = labelPosition;
     }    
 

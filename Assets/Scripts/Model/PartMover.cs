@@ -6,9 +6,9 @@ public class PartMover : MonoBehaviour
 {
     [SerializeField]
     private bool _isMovable = true;
-    [SerializeField]
+    [SerializeField, Tooltip("The object that marks the direction that this part will go in")]
     private Transform _directionMarker;
-    [SerializeField, Range(0.001f, 1.5f)]
+    [SerializeField, Range(0.001f, 1.5f), Tooltip("How far the part is moved out form the centre in the expanded view")]
     internal float _multiplier;
 
     private Vector3 _origionalPos;
@@ -24,7 +24,8 @@ public class PartMover : MonoBehaviour
     /// </summary>
     /// <param name="modelCentre">The centre of the whole model</param>
     internal IEnumerator ExpandPos(Vector3 modelCentre)
-    {           
+    {      
+        //Save the origional position to return to after
         _origionalPos = transform.position;
 
         //calculate end position
