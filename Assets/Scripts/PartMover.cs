@@ -6,16 +6,13 @@ using UnityEngine;
 public class PartMover : MonoBehaviour
 {
     [SerializeField]
-    private Transform _partCentre, _directionMarker;
+    private Transform _directionMarker;
     [SerializeField, Range(00.1f, 2f)]
     internal float _multiplier;
-    
+
     private static float _moveTime = 1f;
 
-    private Vector3 partCentre
-    {
-        get => (_partCentre == null ? GetComponentInChildren<Transform>() : _partCentre).position;
-    }
+    private Vector3 partCentre { get => GetComponent<Renderer>().bounds.center; }
 
     private Vector3 directionPoint
     {
