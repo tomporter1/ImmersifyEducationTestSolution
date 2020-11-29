@@ -17,6 +17,12 @@ public class PartMover : MonoBehaviour
 
     private static float _moveTime = 1f;
 
+    void Start()
+    {
+        //Save the origional position to return to after
+        _origionalLocalPos = transform.localPosition;
+    }
+
     /// <summary>
     /// Sends the part away from the model centre. 
     /// The distance it goes is dependant on the multiplier.
@@ -24,10 +30,7 @@ public class PartMover : MonoBehaviour
     /// </summary>
     /// <param name="modelCentre">The centre of the whole model</param>
     internal IEnumerator ExpandPos(Vector3 modelCentre)
-    {      
-        //Save the origional position to return to after
-        _origionalLocalPos = transform.localPosition;
-
+    {
         //calculate end position
         Vector3 offset = transform.position - _partCentre;
         Vector3 expandDirection = _directionPoint - modelCentre;
