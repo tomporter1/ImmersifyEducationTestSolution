@@ -11,19 +11,9 @@ public class LabelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        List<string> labels = LabelLoader.GetLabelData();
+        AddLabelsToParts();
 
-        foreach (TextMeshPro tmp in GetComponentsInChildren<TextMeshPro>(true))
-        {
-            string partName = tmp.GetComponentInParent<PartMover>().name;
-            partName = RemoveNonLetterChars(partName);
-
-            foreach (string lab in labels)
-            {
-                if (RemoveNonLetterChars(lab).Contains(partName))
-                    tmp.text = lab;
-            }
-        }
+        SetLabelsText();
 
         SetLabelsVisability(false);
     }
@@ -34,6 +24,31 @@ public class LabelManager : MonoBehaviour
             SetLabelsVisability(false);
         else
             SetLabelsVisability(true);
+    }
+
+    private void AddLabelsToParts()
+    {
+        foreach (Part part in GetComponentsInChildren<Part>(true))
+        {
+            part.InstantiateLabel();
+        }
+    }
+
+    private void SetLabelsText()
+    {
+        List<string> labels = LabelLoader.GetLabelData();
+
+        foreach (Part part in GetComponentsInChildren<Part>(true))
+        {
+            string partName = part.name;
+            partName = RemoveNonLetterChars(partName);
+
+            foreach (string lab in labels)
+            {
+                if (RemoveNonLetterChars(lab).Contains(partName))
+                    part.SetLabelText(lab);
+            }
+        }
     }
 
     private void SetLabelsVisability(bool isActive)
