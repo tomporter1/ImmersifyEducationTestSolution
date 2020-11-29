@@ -45,7 +45,7 @@ public class LabelManager : MonoBehaviour
     {
         List<string> labels = LabelLoader.GetLabelData();
 
-        foreach (Part part in GetComponentsInChildren<Part>())
+        foreach (Part part in GetComponentsInChildren<Part>(true))
         {
             SetLabelText(part.transform, part, labels);
         }

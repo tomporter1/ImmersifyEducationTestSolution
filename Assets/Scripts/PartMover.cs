@@ -5,6 +5,8 @@ using UnityEngine;
 public class PartMover : MonoBehaviour
 {
     [SerializeField]
+    private bool _isMovable = true;
+    [SerializeField]
     private Transform _directionMarker;
     [SerializeField, Range(0.001f, 1.5f)]
     internal float _multiplier;
@@ -22,7 +24,7 @@ public class PartMover : MonoBehaviour
     /// </summary>
     /// <param name="modelCentre">The centre of the whole model</param>
     internal IEnumerator ExpandPos(Vector3 modelCentre)
-    {
+    {           
         _origionalPos = transform.position;
 
         //calculate end position
@@ -33,14 +35,13 @@ public class PartMover : MonoBehaviour
         Vector3 startPos = transform.position;
         float elapsedTime = 0;
 
-        while (elapsedTime < _moveTime)
+        while (_isMovable && elapsedTime < _moveTime)
         {
             transform.position = Vector3.Lerp(startPos, endPos, (elapsedTime / _moveTime));
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
-        transform.position = endPos;
     }
 
     /// <summary>
@@ -53,13 +54,12 @@ public class PartMover : MonoBehaviour
 
         float elapsedTime = 0;
 
-        while (elapsedTime < _moveTime)
+        while (_isMovable && elapsedTime < _moveTime)
         {
             transform.position = Vector3.Lerp(startPos, endPos, (elapsedTime / _moveTime));
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
-        transform.position = endPos;
     }
 }
