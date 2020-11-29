@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 public class ModelExpander : MonoBehaviour
 {
@@ -13,12 +9,12 @@ public class ModelExpander : MonoBehaviour
     
     public void OnMouseDown()
     {
-        foreach (PartMover part in GetComponentsInChildren<PartMover>())
+        foreach (Part part in GetComponentsInChildren<Part>())
         {
             if (_isExpanded)
-                StartCoroutine(part.ReturnPos());
+                part.Expand();
             else
-                StartCoroutine(part.ExpandPos(_centerTran.position));
+                part.ReturnPosition(_centerTran.position); 
         }
         _isExpanded = !_isExpanded;
     }

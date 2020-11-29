@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
 
 public class Part : MonoBehaviour
 {
@@ -10,11 +8,25 @@ public class Part : MonoBehaviour
 
     private TextMeshPro _labelText;
 
+    public Vector3 CentreOfMass { get => GetComponent<Renderer>().bounds.center; }
+
     public void InstantiateLabel()
     {
         GameObject newLabel = Instantiate(_labelPrefab, transform);
         _labelText = newLabel.GetComponent<TextMeshPro>();
         _labelText.text = "";
+
+        //Set label position
+    }
+
+    internal void ReturnPosition(Vector3 modelCentre)
+    {
+        StartCoroutine(GetComponent<PartMover>().ExpandPos(modelCentre));
+    }
+
+    internal void Expand()
+    {
+        StartCoroutine(GetComponent<PartMover>().ReturnPos());
     }
 
     public void SetLabelText(string newText)
