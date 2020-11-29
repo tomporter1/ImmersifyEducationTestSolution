@@ -14,6 +14,9 @@ public class ScaleUpdator : MonoBehaviour
     private void SetModel(GameObject newModel)
     {
         _model = newModel.transform;
+        float newMin = _model.localScale.x;
+        GetComponent<Slider>().minValue = newMin;
+        GetComponent<Slider>().value = newMin;
     }
 
     public void SetModelScale()
