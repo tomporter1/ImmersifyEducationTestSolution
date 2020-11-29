@@ -45,7 +45,7 @@ public class LabelManager : MonoBehaviour
     {
         List<string> labels = LabelLoader.GetLabelData();
 
-        foreach (Part part in GetComponentsInChildren<Part>(true))
+        foreach (Part part in GetComponentsInChildren<Part>())
         {
             SetLabelText(part.transform, part, labels);
         }
@@ -56,7 +56,7 @@ public class LabelManager : MonoBehaviour
         string simplifiedObjName = RemoveNonLetterChars(obj.name);
         string labelText = labels.Where(l => RemoveNonLetterChars(l).Contains(simplifiedObjName)).FirstOrDefault();
 
-        if (labelText != "")
+        if (labelText != null)
             part.SetLabelText(labelText);
         else if(obj.transform.parent != null)
             SetLabelText(obj.transform.parent, part, labels);
