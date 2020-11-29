@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 
 public class LabelManager : MonoBehaviour
 {
+    [SerializeField]
+    private Transform _modelCentre;
+
     public bool _labelsAreVisable { get; private set; }
     private static string RemoveNonLetterChars(string input) => Regex.Replace(input, "[._ 1234567890()\r\b]", "").ToLower();
 
@@ -20,17 +24,21 @@ public class LabelManager : MonoBehaviour
 
     public void ToggelLabelVisability()
     {
-        if (_labelsAreVisable)
-            SetLabelsVisability(false);
-        else
-            SetLabelsVisability(true);
+        if (GetComponentInChildren<MeshRenderer>().enabled)
+        {
+            if (_labelsAreVisable)
+                SetLabelsVisability(false);
+            else
+                SetLabelsVisability(true);
+        }
     }
 
     private void AddLabelsToParts()
     {
         foreach (Part part in GetComponentsInChildren<Part>(true))
         {
-            part.InstantiateLabel();
+            part.InstantiateLabel(_modelCentre.position);
+            //part.DrawLineToLabel();
         }
     }
 
@@ -40,17 +48,19 @@ public class LabelManager : MonoBehaviour
 
         foreach (Part part in GetComponentsInChildren<Part>(true))
         {
-            string partName = part.name;
-            partName = RemoveNonLetterChars(partName);
-
-            foreach (string lab in labels)
-            {
-                if (RemoveNonLetterChars(lab).Contains(partName))
-                    part.SetLabelText(lab);
-            }
+            SetLabelText(part.transform, part, labels);
         }
     }
 
+    private void SetLabelText(Transform obj, Part part, List<string> labels)
+    {
+        string labelText = labels.Where(l => RemoveNonLetterChars(l).Contains(RemoveNonLetterChars(obj.name))).FirstOrDefault();
+
+        if (labelText != "")
+            part.SetLabelText(labelText);
+        else if(obj.transform.parent != null)
+            SetLabelText(obj.transform.parent, part, labels);
+    }
     private void SetLabelsVisability(bool isActive)
     {
         foreach (TextMeshPro tmp in GetComponentsInChildren<TextMeshPro>(true))

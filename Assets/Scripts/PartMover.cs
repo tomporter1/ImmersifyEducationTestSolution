@@ -6,11 +6,12 @@ public class PartMover : MonoBehaviour
 {
     [SerializeField]
     private Transform _directionMarker;
-    [SerializeField, Range(00.1f, 2f)]
+    [SerializeField]//, Range(0.001f, 1.5f)]
     internal float _multiplier;
 
     private static float _moveTime = 1f;
 
+    private Vector3 _origionalPos;
     private Vector3 partCentre { get => GetComponent<Part>().CentreOfMass; }
 
     private Vector3 directionPoint
@@ -26,11 +27,13 @@ public class PartMover : MonoBehaviour
     /// <param name="modelCentre">The centre of the whole model</param>
     internal IEnumerator ExpandPos(Vector3 modelCentre)
     {
+        _origionalPos = transform.position;
+
         //calculate end position
         Vector3 offset = transform.position - partCentre;
-        Vector3 expandDirection = (directionPoint - modelCentre);
+        Vector3 expandDirection = directionPoint - modelCentre;
         Vector3 endPos = partCentre - offset + expandDirection * _multiplier;
-        
+
         Vector3 startPos = transform.position;
         float elapsedTime = 0;
 
@@ -46,23 +49,23 @@ public class PartMover : MonoBehaviour
     }
 
     /// <summary>
-    /// Sends the part back to 0,0,0 in LOCAL space
+    /// Sends the part back to its origional position before expansion
     /// </summary>
     internal IEnumerator ReturnPos()
     {
-        Vector3 endPos = Vector3.zero;
-        Vector3 startPos = transform.localPosition;
+        Vector3 endPos = _origionalPos != null ? _origionalPos : transform.position;
+        Vector3 startPos = transform.position;
 
         float elapsedTime = 0;
 
         while (elapsedTime < _moveTime)
         {
-            transform.localPosition = Vector3.Lerp(startPos, endPos, (elapsedTime / _moveTime));
+            transform.position = Vector3.Lerp(startPos, endPos, (elapsedTime / _moveTime));
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = endPos;
+        transform.position = endPos;
     }
 }
