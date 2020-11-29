@@ -25,18 +25,7 @@ public class Part : MonoBehaviour
 
         //set label position
         _labelText.transform.position = labelPosition;
-    }
-
-    //public void DrawLineToLabel()
-    //{
-    //    gameObject.AddComponent<LineRenderer>();
-    //    LineRenderer line = GetComponent<LineRenderer>();
-    //    line.useWorldSpace = false;
-    //    line.startWidth = 0.02f;
-    //    line.endWidth = 0.02f;
-    //    Vector3[] positions = new Vector3[2] { _labelText.transform.position, CentreOfMass };
-    //    line.SetPositions(positions);
-    //}
+    }    
 
     internal void ReturnPosition(Vector3 modelCentre)
     {

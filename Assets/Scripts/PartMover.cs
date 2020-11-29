@@ -6,18 +6,14 @@ public class PartMover : MonoBehaviour
 {
     [SerializeField]
     private Transform _directionMarker;
-    [SerializeField]//, Range(0.001f, 1.5f)]
+    [SerializeField, Range(0.001f, 1.5f)]
     internal float _multiplier;
-
-    private static float _moveTime = 1f;
 
     private Vector3 _origionalPos;
     private Vector3 partCentre { get => GetComponent<Part>().CentreOfMass; }
+    private Vector3 directionPoint { get => _directionMarker == null ? partCentre : _directionMarker.position; }
 
-    private Vector3 directionPoint
-    {
-        get => _directionMarker == null ? partCentre : _directionMarker.position;
-    }
+    private static float _moveTime = 1f;
 
     /// <summary>
     /// Sends the part away from the model centre. 
@@ -44,7 +40,6 @@ public class PartMover : MonoBehaviour
 
             yield return null;
         }
-
         transform.position = endPos;
     }
 
@@ -65,7 +60,6 @@ public class PartMover : MonoBehaviour
 
             yield return null;
         }
-
         transform.position = endPos;
     }
 }

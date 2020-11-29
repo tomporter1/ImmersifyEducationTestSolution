@@ -38,7 +38,6 @@ public class LabelManager : MonoBehaviour
         foreach (Part part in GetComponentsInChildren<Part>(true))
         {
             part.InstantiateLabel(_modelCentre.position);
-            //part.DrawLineToLabel();
         }
     }
 
@@ -54,7 +53,8 @@ public class LabelManager : MonoBehaviour
 
     private void SetLabelText(Transform obj, Part part, List<string> labels)
     {
-        string labelText = labels.Where(l => RemoveNonLetterChars(l).Contains(RemoveNonLetterChars(obj.name))).FirstOrDefault();
+        string simplifiedObjName = RemoveNonLetterChars(obj.name);
+        string labelText = labels.Where(l => RemoveNonLetterChars(l).Contains(simplifiedObjName)).FirstOrDefault();
 
         if (labelText != "")
             part.SetLabelText(labelText);
