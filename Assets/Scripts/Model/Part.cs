@@ -7,7 +7,7 @@ public class Part : MonoBehaviour
     private GameObject _labelPrefab;
 
     private TextMeshPro _labelText;
-    private static readonly float labelMultiplier = 0.85f;
+    private static readonly float labelMultiplier = 0.5f;
 
     public Vector3 CentreOfMass { get => GetComponent<Renderer>().bounds.center; }
 
